@@ -4,17 +4,17 @@
   <arg name="respawn" default="false" />
   <!-- TODO Arguments for debayer, interpolation methods? -->
 
-  <arg     if="$(arg respawn)" name="bond" value="" />
+  <arg if="$(arg respawn)" name="bond" value="" />
   <arg unless="$(arg respawn)" name="bond" value="--no-bond" />
 
   <node pkg="nodelet" type="nodelet" name="$(arg manager)" args="manager" output="screen" />
 
   <!-- arguments for camera param uri -->
   <arg name="camera_info_file_right"
-       default="$(find ps4eye)/camera_info/right.yaml" />
+       default="$(find script_ps4eye)/camera_info/right.yaml" />
   <arg name="camera_info_file_left"
-       default="$(find ps4eye)/camera_info/left.yaml" />
-  <arg name="camera_info_url_default" default="file://$(find ps4eye)/camera_info/default.yaml" />
+       default="$(find script_ps4eye)/camera_info/left.yaml" />
+  <arg name="camera_info_url_default" default="file://$(find script_ps4eye)/camera_info/default.yaml" />
   <arg name="camera_info_url_right" default="file://$(arg camera_info_file_right)" />
   <arg name="camera_info_url_left" default="file://$(arg camera_info_file_left)" />
 

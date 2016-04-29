@@ -22,6 +22,7 @@ alias rosterminator='terminator -l rosps4'
 alias rosgitcd='cd $MY_ROS_WORKSPACE'
 
 # Ros tools
+alias ros_use_sim_time='rosparam set use_sim_time true'
 alias ros_stereo_image_proc='rosrun stereo_image_proc stereo_image_proc __ns:=stereo'
 alias ros_disparity_view='rosrun image_view disparity_view image:=/stereo/disparity'
 alias ros_reconfigure='rosrun rqt_reconfigure rqt_reconfigure'

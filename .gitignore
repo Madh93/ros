@@ -50,3 +50,4 @@ CATKIN_IGNORE
 ps4eye/
 rtab_resources/
 *.bag
+*.db

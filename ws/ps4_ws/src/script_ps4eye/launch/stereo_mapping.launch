@@ -12,7 +12,7 @@
   
   <!-- Corresponding config files -->
   <arg name="rtabmapviz_cfg"          default="-d $(find script_ps4eye)/launch/config/rgbd_gui.ini" />
-  <arg name="rviz_cfg"                default="-d $(find script_ps4eye)/launch/config/rgbd.rviz" />
+  <arg name="rviz_cfg"                default="-d ~/Workspace/ROS/config/rviz/ps4eye_verdino.rviz" />
   
   <arg name="frame_id"                default="/ps4eye_frame"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
   <arg name="time_threshold"          default="0"/>             <!-- (ms) If not 0 ms, memory management is used to keep processing time on this fixed limit. -->

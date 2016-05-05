@@ -4,6 +4,7 @@
         images + corresponding camera_info msgs. You can use stereo_image_proc for image rectification.
         Example:
            $ roslaunch rtabmap_ros bumblebee.launch -->
+  <param name="use_sim_time" type="bool" value="True"/>
  
   <!-- Choose visualization -->
   <arg name="rtabmapviz"              default="true" /> 
@@ -18,6 +19,7 @@
   <arg name="optimize_from_last_node" default="false"/>         <!-- Optimize the map from the last node. Should be true on multi-session mapping and when time threshold is set -->
   <arg name="database_path"           default="$(find script_ps4eye)/map/rtabmap.db"/>   <!-- Lugar donde almacenar el mapa generado -->
   <arg name="rtabmap_args"            default=""/>    <!-- Manualmente incluir rtabmap_args:="- -delete_db_on_start" -->
+
   
   <arg name="stereo_namespace"        default="/stereo"/>
   <arg name="left_image_topic"        default="$(arg stereo_namespace)/left/image_rect" />
@@ -103,6 +105,8 @@
       <param name="LccBow/InlierDistance"     type="string" value="$(arg inlier_distance)"/>
       <param name="LccBow/EstimationType"     type="string" value="$(arg estimation)"/> 
       <param name="LccBow/VarianceFromInliersCount" type="string" value="$(arg variance_inliers)"/>
+
+      <param name="Mem/IncrementalMemory" type="string" value="false"/>     <!-- Modo Localizacion a partir de mapa -->
       
       <!-- when 2D scan is set -->
       <param if="$(arg subscribe_scan)" name="RGBD/OptimizeSlam2D"          type="string" value="true"/>

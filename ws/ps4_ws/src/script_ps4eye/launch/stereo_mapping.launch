@@ -14,7 +14,7 @@
   <arg name="rtabmapviz_cfg"          default="-d $(find script_ps4eye)/launch/config/rgbd_gui.ini" />
   <arg name="rviz_cfg"                default="-d ~/Workspace/ROS/config/rviz/ps4eye_verdino.rviz" />
   
-  <arg name="frame_id"                default="/ps4eye_frame"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
+  <arg name="frame_id"                default="/base_link"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
   <arg name="time_threshold"          default="0"/>             <!-- (ms) If not 0 ms, memory management is used to keep processing time on this fixed limit. -->
   <arg name="optimize_from_last_node" default="false"/>         <!-- Optimize the map from the last node. Should be true on multi-session mapping and when time threshold is set -->
   <arg name="database_path"           default="$(find script_ps4eye)/map/rtabmap.db"/>   <!-- Lugar donde almacenar el mapa generado -->
@@ -50,9 +50,6 @@
   <arg name="odom_info_data"      default="true" />    <!-- Fill odometry info messages with inliers/outliers data. -->
   <arg name="variance_inliers"    default="true"/>    <!-- Variance from inverse of inliers count -->  
         
-  <!-- Nodes -->
-   <node pkg="tf" type="static_transform_publisher" name="camera_transform"
-    args="0.84  0 0.05 -1.57 0.0 -1.70 base_link /ps4eye_frame 100" />
   <group ns="$(arg namespace)">
   
     <!--node if="$(arg compressed)" name="republish_left"  type="republish" pkg="image_transport" args="compressed in:=$(arg left_image_topic) raw out:=$(arg left_image_topic)" / -->
@@ -147,5 +144,8 @@
     <param name="voxel_size"  type="double" value="0.02"/>
     <param name="approx_sync" type="bool"   value="$(arg approximate_sync)"/>
   </node>
+
+  <!-- TF -->
+  <node pkg="tf" type="static_transform_publisher" name="tf_baselink_to_ps4eye" args="0.0 0.0 0.85 -1.5707 0 -1.5707 base_link ps4eye_frame 100" />
 
 </launch>

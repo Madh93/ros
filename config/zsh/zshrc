@@ -27,12 +27,9 @@ alias ros_stereo_image_proc='rosrun stereo_image_proc stereo_image_proc __ns:=st
 alias ros_disparity_view='rosrun image_view disparity_view image:=/stereo/disparity'
 alias ros_reconfigure='rosrun rqt_reconfigure rqt_reconfigure'
 
-# Rosbag play
-alias rosplay_carrito='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_carrito/2016-04-21-18-40-48.bag'
-alias rosplay_carrito_slow='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_carrito/2016-04-21-18-40-48.bag -r 0.5'
-alias rosplay_verdino='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_verdino/2016-03-10-19-10-07.bag'
-alias rosplay_verdino_slow='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_verdino/2016-03-10-19-10-07.bag -r 0.5'
-alias rosplay_parking='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_parking/stereo_parking.bag'
-alias rosplay_parking_slow='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_parking/stereo_parking.bag -r 0.5'
-alias rosplay_peatones='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_peatones/stereo_peatones.bag'
-alias rosplay_peatones_slow='rosbag play -l --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_peatones/stereo_peatones.bag -r 0.5'
+# Rosbag play   (optional arguments: -l -r 0.5)
+alias rosplay_carrito1='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_carrito/pseye_carrito1.bag $@'
+alias rosplay_carrito2='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_carrito/pseye_carrito2.bag $@'
+alias rosplay_verdino='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_verdino/2016-03-10-19-10-07.bag $@'
+alias rosplay_parking='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_parking/stereo_parking.bag $@'
+alias rosplay_peatones='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_peatones/stereo_peatones.bag $@'

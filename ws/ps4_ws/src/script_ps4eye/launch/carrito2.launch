@@ -5,6 +5,7 @@
         Example:
            $ roslaunch rtabmap_ros bumblebee.launch -->
   <param name="use_sim_time" type="bool" value="True"/>
+  <rosparam command="load" file="$(find script_ps4eye)/params/params2.yaml" />
  
   <!-- Choose visualization -->
   <arg name="rtabmapviz"              default="true" />

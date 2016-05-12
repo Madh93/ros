@@ -1,0 +1,55 @@
+rosdistro: 'jade
+
+  '
+roslaunch:
+  uris: {host_mento__37567: 'http://mento:37567/'}
+rosversion: '1.11.16
+
+  '
+run_id: 4e33e322-1891-11e6-805e-fcaa141af4b1
+stereo:
+  left:
+    image_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_mono:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+  right:
+    image_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_mono:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+  stereo_image_proc: {P1: 200.0, P2: 400.0, correlation_window_size: 15, disp12MaxDiff: 0,
+    disparity_range: 48, fullDP: false, min_disparity: 0, prefilter_cap: 42, prefilter_size: 9,
+    speckle_range: 6, speckle_size: 200, stereo_algorithm: 0, texture_threshold: 7,
+    uniqueness_ratio: 25.0}
+  stereo_image_proc_debayer_left: {debayer: 0}
+  stereo_image_proc_debayer_right: {debayer: 0}
+  stereo_image_proc_rectify_color_left: {interpolation: 1}
+  stereo_image_proc_rectify_color_right: {interpolation: 1}
+  stereo_image_proc_rectify_mono_left: {interpolation: 1}
+  stereo_image_proc_rectify_mono_right: {interpolation: 1}
+use_sim_time: true

@@ -33,3 +33,6 @@ alias rosplay_carrito2='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/pse
 alias rosplay_verdino='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/pseye_verdino/2016-03-10-19-10-07.bag $@'
 alias rosplay_parking='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_parking/stereo_parking.bag $@'
 alias rosplay_peatones='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/stereo_peatones/stereo_peatones.bag $@'
+alias rosplay_silla1='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/silla/2016-05-18-18-18-05.bag $@'
+alias rosplay_silla2='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/silla/2016-05-18-18-21-11.bag $@'
+alias rosplay_silla3='rosbag play --clock $MY_ROS_WORKSPACE/rtab_resources/silla/2016-05-18-18-23-42.bag $@'

@@ -25,8 +25,8 @@
   <arg name="stereo_namespace"        default="/stereo"/>
   <arg name="left_image_topic"        default="$(arg stereo_namespace)/left/image_rect_color" />
   <arg name="right_image_topic"       default="$(arg stereo_namespace)/right/image_rect_color" />      <!-- using COLOR image -->
-  <arg name="left_raw_topic"        default="$(arg stereo_namespace)/left/image_raw" />
-  <arg name="right_raw_topic"        default="$(arg stereo_namespace)/right/image_raw" />
+  <arg name="left_raw_topic"          default="$(arg stereo_namespace)/left/image_raw" />
+  <arg name="right_raw_topic"         default="$(arg stereo_namespace)/right/image_raw" />
   <arg name="left_camera_info_topic"  default="$(arg stereo_namespace)/left/camera_info" />
   <arg name="right_camera_info_topic" default="$(arg stereo_namespace)/right/camera_info" />
   <arg name="approximate_sync"        default="false"/>         <!-- if timestamps of the stereo images are not synchronized -->

@@ -5,7 +5,7 @@
         Example:
            $ roslaunch rtabmap_ros bumblebee.launch -->
   <param name="use_sim_time" type="bool" value="True"/>
-  <!-- <rosparam command="load" file="$(find script_ps4eye)/params/params2.yaml" /> -->
+  <!-- <rosparam command="load" file="$(find script_ps4eye)/params/params?.yaml" /> -->
  
   <!-- Choose visualization -->
   <arg name="rtabmapviz"              default="true" />
@@ -18,17 +18,19 @@
   <arg name="frame_id"                default="/base_link"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
   <arg name="time_threshold"          default="0"/>             <!-- (ms) If not 0 ms, memory management is used to keep processing time on this fixed limit. -->
   <arg name="optimize_from_last_node" default="false"/>         <!-- Optimize the map from the last node. Should be true on multi-session mapping and when time threshold is set -->
-  <arg name="database_path"           default="$(find script_ps4eye)/map/rtabmap_carrito2.db"/>   <!-- Lugar donde almacenar el mapa generado -->
+  <arg name="database_path"           default="$(find script_ps4eye)/map/rtabmap_silla1.db"/>   <!-- Lugar donde almacenar el mapa generado -->
   <arg name="rtabmap_args"            default=""/>    <!-- Manualmente incluir rtabmap_args:="- -delete_db_on_start" -->
 
   
   <arg name="stereo_namespace"        default="/stereo"/>
   <arg name="left_image_topic"        default="$(arg stereo_namespace)/left/image_rect_color" />
-  <arg name="right_image_topic"       default="$(arg stereo_namespace)/right/image_rect_color" />      <!-- using COLOR image for efficiency -->
+  <arg name="right_image_topic"       default="$(arg stereo_namespace)/right/image_rect_color" />      <!-- using COLOR image -->
+  <arg name="left_raw_topic"        default="$(arg stereo_namespace)/left/image_raw" />
+  <arg name="right_raw_topic"        default="$(arg stereo_namespace)/right/image_raw" />
   <arg name="left_camera_info_topic"  default="$(arg stereo_namespace)/left/camera_info" />
   <arg name="right_camera_info_topic" default="$(arg stereo_namespace)/right/camera_info" />
   <arg name="approximate_sync"        default="false"/>         <!-- if timestamps of the stereo images are not synchronized -->
-  <arg name="compressed"              default="false"/>
+  <arg name="compressed"              default="true"/>
    
   <arg name="subscribe_scan"          default="false"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
   <arg name="scan_topic"              default="/scan"/>
@@ -53,8 +55,9 @@
         
   <group ns="$(arg namespace)">
   
-    <!--node if="$(arg compressed)" name="republish_left"  type="republish" pkg="image_transport" args="compressed in:=$(arg left_image_topic) raw out:=$(arg left_image_topic)" / -->
-    <!-- node if="$(arg compressed)" name="republish_right" type="republish" pkg="image_transport" args="compressed in:=$(arg right_image_topic) raw out:=$(arg right_image_topic)" / -->
+    <!-- Remapear imagenes comprimidas -->
+    <node if="$(arg compressed)" name="republish_left"  type="republish" pkg="image_transport" args="compressed in:=$(arg left_raw_topic) raw out:=$(arg left_raw_topic)"/>
+    <node if="$(arg compressed)" name="republish_right" type="republish" pkg="image_transport" args="compressed in:=$(arg right_raw_topic) raw out:=$(arg right_raw_topic)"/>
   
     <!-- Odometry -->
     <node if="$(arg visual_odometry)" pkg="rtabmap_ros" type="stereo_odometry" name="stereo_odometry" output="screen">
@@ -148,5 +151,8 @@
 
   <!-- TF -->
   <node pkg="tf" type="static_transform_publisher" name="tf_baselink_to_ps4eye" args="0.0 0.0 0.85 -1.5707 0 -1.5707 base_link ps4eye_frame 100" />
+
+  <!-- Stereo_image_proc -->
+  <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" args="__ns:=stereo" />
 
 </launch>

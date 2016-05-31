@@ -8,8 +8,8 @@
   <!-- <rosparam command="load" file="$(find script_ps4eye)/params/params?.yaml" /> -->
  
   <!-- Choose visualization -->
-  <arg name="rtabmapviz"              default="false" />
-  <arg name="rviz"                    default="true" />
+  <arg name="rtabmapviz"              default="true" />
+  <arg name="rviz"                    default="false" />
   
   <!-- Corresponding config files -->
   <arg name="rtabmapviz_cfg"          default="-d $(find script_ps4eye)/launch/config/rgbd_gui.ini" />
@@ -35,8 +35,8 @@
   <arg name="subscribe_scan"          default="false"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
   <arg name="scan_topic"              default="/scan"/>
    
-  <arg name="visual_odometry"         default="true"/>          <!-- Generate visual odometry -->
-  <arg name="odom_topic"              default="/perenquen/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
+  <arg name="visual_odometry"         default="false"/>          <!-- Generate visual odometry -->
+  <arg name="odom_topic"              default="/laser_odom"/>         <!-- Odometry topic used if visual_odometry is false -->
   
   <arg name="namespace"               default="rtabmap"/>
   <arg name="wait_for_transform"      default="0.1"/>
@@ -98,7 +98,7 @@
       <remap from="left/camera_info"       to="$(arg left_camera_info_topic)"/>
       <remap from="right/camera_info"      to="$(arg right_camera_info_topic)"/>
       <remap from="scan"                   to="$(arg scan_topic)"/>
-      <remap unless="$(arg visual_odometry)" from="odom"  to="$(arg odom_topic)"/>
+      <remap from="odom"  to="$(arg odom_topic)"/>
       
       <param name="Rtabmap/TimeThr"           type="string" value="$(arg time_threshold)"/>
       <param name="RGBD/OptimizeFromGraphEnd" type="string" value="$(arg optimize_from_last_node)"/>
@@ -150,7 +150,7 @@
   </node>
 
   <!-- TF -->
-  <node pkg="tf" type="static_transform_publisher" name="tf_baselink_to_ps4eye" args="0.0 0.0 0.85 -1.5707 0 -1.5707 base_link ps4eye_frame 100" />
+  <!-- <node pkg="tf" type="static_transform_publisher" name="tf_baselink_to_ps4eye" args="0.0 0.0 0.85 -1.5707 0 -1.5707 base_link ps4eye_frame 100" /> -->
 
   <!-- Stereo_image_proc -->
   <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" args="__ns:=stereo" />

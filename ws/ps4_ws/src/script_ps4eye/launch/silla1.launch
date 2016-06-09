@@ -36,7 +36,7 @@
   <arg name="scan_topic"              default="/scan"/>
    
   <arg name="visual_odometry"         default="false"/>          <!-- Generate visual odometry -->
-  <arg name="odom_topic"              default="/laser_odom"/>         <!-- Odometry topic used if visual_odometry is false -->
+  <arg name="odom_topic"              default="/perenquen/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
   
   <arg name="namespace"               default="rtabmap"/>
   <arg name="wait_for_transform"      default="0.1"/>
@@ -51,7 +51,7 @@
   <arg name="inlier_distance"     default="0.1" />     <!-- RANSAC maximum inliers distance (m) -->
   <arg name="local_map"           default="1000" />    <!-- Local map size: number of unique features to keep track -->
   <arg name="odom_info_data"      default="true" />    <!-- Fill odometry info messages with inliers/outliers data. -->
-  <arg name="variance_inliers"    default="true"/>    <!-- Variance from inverse of inliers count -->  
+  <arg name="variance_inliers"    default="false"/>    <!-- Variance from inverse of inliers count -->  
         
   <group ns="$(arg namespace)">
   
@@ -98,7 +98,7 @@
       <remap from="left/camera_info"       to="$(arg left_camera_info_topic)"/>
       <remap from="right/camera_info"      to="$(arg right_camera_info_topic)"/>
       <remap from="scan"                   to="$(arg scan_topic)"/>
-      <remap from="odom"  to="$(arg odom_topic)"/>
+      <remap unless="$(arg visual_odometry)" from="odom"  to="$(arg odom_topic)"/>
       
       <param name="Rtabmap/TimeThr"           type="string" value="$(arg time_threshold)"/>
       <param name="RGBD/OptimizeFromGraphEnd" type="string" value="$(arg optimize_from_last_node)"/>

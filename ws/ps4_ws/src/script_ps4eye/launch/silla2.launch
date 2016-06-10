@@ -1,4 +1,3 @@
-
 <launch>
    <!-- Your camera should be calibrated and publishing rectified left and right 
         images + corresponding camera_info msgs. You can use stereo_image_proc for image rectification.
@@ -33,13 +32,13 @@
   <arg name="compressed"              default="true"/>
    
   <arg name="subscribe_scan"          default="false"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
-  <arg name="scan_topic"              default="/scan"/>
+  <arg name="scan_topic"              default="/left_laser"/>
    
-  <arg name="visual_odometry"         default="true"/>          <!-- Generate visual odometry -->
-  <arg name="odom_topic"              default="/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
+  <arg name="visual_odometry"         default="false"/>          <!-- Generate visual odometry -->
+  <arg name="odom_topic"              default="/perenquen/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
   
   <arg name="namespace"               default="rtabmap"/>
-  <arg name="wait_for_transform"      default="0.1"/>
+  <arg name="wait_for_transform"      default="0.5"/>     <!-- IMPORTANTE, tiempo de espera de las tfs. Por defecto: 0.1.  -->
   
   <!-- Odometry parameters: -->
   <arg name="strategy"            default="0" />       <!-- Strategy: 0=BOW (bag-of-words) 1=Optical Flow -->
@@ -51,7 +50,7 @@
   <arg name="inlier_distance"     default="0.1" />     <!-- RANSAC maximum inliers distance (m) -->
   <arg name="local_map"           default="1000" />    <!-- Local map size: number of unique features to keep track -->
   <arg name="odom_info_data"      default="true" />    <!-- Fill odometry info messages with inliers/outliers data. -->
-  <arg name="variance_inliers"    default="true"/>    <!-- Variance from inverse of inliers count -->  
+  <arg name="variance_inliers"    default="false"/>    <!-- Variance from inverse of inliers count -->  
         
   <group ns="$(arg namespace)">
   
@@ -65,11 +64,11 @@
       <remap from="right/image_rect"       to="$(arg right_image_topic)"/>
       <remap from="left/camera_info"       to="$(arg left_camera_info_topic)"/>
       <remap from="right/camera_info"      to="$(arg right_camera_info_topic)"/>
-	  
+    
       <param name="frame_id"                 type="string" value="$(arg frame_id)"/>
       <param name="wait_for_transform_duration"       type="double"   value="$(arg wait_for_transform)"/>
       <param name="approx_sync"              type="bool"   value="$(arg approximate_sync)"/>
-	  
+
       <param name="Odom/Strategy"            type="string" value="$(arg strategy)"/> 
       <param name="Odom/FeatureType"         type="string" value="$(arg feature)"/>  
       <param name="OdomBow/NNType"           type="string" value="$(arg nn)"/>
@@ -92,7 +91,7 @@
       <param name="wait_for_transform_duration"  type="double"   value="$(arg wait_for_transform)"/>
       <param name="database_path"       type="string" value="$(arg database_path)"/>
       <param name="stereo_approx_sync"  type="bool"   value="$(arg approximate_sync)"/>
-	
+
       <remap from="left/image_rect"        to="$(arg left_image_topic)"/>
       <remap from="right/image_rect"       to="$(arg right_image_topic)"/>
       <remap from="left/camera_info"       to="$(arg left_camera_info_topic)"/>
@@ -108,20 +107,22 @@
       <param name="LccBow/VarianceFromInliersCount" type="string" value="$(arg variance_inliers)"/>
 
       <param name="Mem/IncrementalMemory" type="string" value="false"/>     <!-- Modo Localizacion a partir de mapa -->
+      <param name="queue_size" type="int" value="30"/>
       
       <!-- when 2D scan is set -->
       <param if="$(arg subscribe_scan)" name="RGBD/OptimizeSlam2D"          type="string" value="true"/>
       <param if="$(arg subscribe_scan)" name="RGBD/LocalLoopDetectionSpace" type="string" value="true"/>
       <param if="$(arg subscribe_scan)" name="LccIcp/Type"                  type="string" value="2"/> 
-	  <param if="$(arg subscribe_scan)" name="LccIcp2/CorrespondenceRatio"  type="string" value="0.25"/>
+    <param if="$(arg subscribe_scan)" name="LccIcp2/CorrespondenceRatio"  type="string" value="0.25"/>
     </node>
   
     <!-- Visualisation RTAB-Map -->
     <node if="$(arg rtabmapviz)" pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="$(arg rtabmapviz_cfg)" output="screen">
-      <param name="subscribe_depth"      type="bool"   value="false"/>
-      <param name="subscribe_stereo"     type="bool"   value="true"/>
+      <param name="subscribe_depth"      type="bool"   value="false"/>    <!-- Rendimiento cae en picado a true -->
+      <param name="subscribe_stereo"     type="bool"   value="true"/>   
       <param name="subscribe_laserScan"       type="bool"   value="$(arg subscribe_scan)"/>
       <param name="subscribe_odom_info"  type="bool"   value="$(arg visual_odometry)"/>
+      <param name="odom_frame_id" type="string" value="odom"/>
       <param name="frame_id"             type="string" value="$(arg frame_id)"/>
       <param name="wait_for_transform_duration"   type="double"   value="$(arg wait_for_transform)"/>
     
@@ -150,7 +151,7 @@
   </node>
 
   <!-- TF -->
-  <node pkg="tf" type="static_transform_publisher" name="tf_baselink_to_ps4eye" args="0.0 0.0 0.85 -1.5707 0 -1.5707 base_link ps4eye_frame 100" />
+  <!-- <node pkg="tf" type="static_transform_publisher" name="tf_baselink_to_ps4eye" args="0.0 0.0 0.85 -1.5707 0 -1.5707 base_link ps4eye_frame 100" /> -->
 
   <!-- Stereo_image_proc -->
   <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" args="__ns:=stereo" />

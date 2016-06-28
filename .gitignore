@@ -47,7 +47,6 @@ qtcreator-*
 CATKIN_IGNORE
 
 # Custom
-ps4eye/
 rtab_resources/
 *.bag
 *.db
